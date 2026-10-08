@@ -29,13 +29,13 @@ pip install -r requirements.txt
 
 ```bash
 # Static dashboard (mid-price, intensities, OFI, inter-arrival times, ACF, stats)
-python LOBModelling.py --mode static --T 120
+python lob_modelling.py --mode static --T 120 --seed 42
 
 # Real-time LOB animation
-python LOBModelling.py --mode live
+python lob_modelling.py --mode live
 
 # Synthetic data then MLE parameter estimation
-python LOBModelling.py --mode calibrate --T 1500 --alpha_x 0
+python lob_modelling.py --mode calibrate --T 1500 --alpha_x 0 --seed 1
 ```
 
 | Option      | Default | Description              |
@@ -47,6 +47,7 @@ python LOBModelling.py --mode calibrate --T 1500 --alpha_x 0
 | `--T`       | 120     | Simulated horizon (s)    |
 | `--tick`    | 0.01    | Tick size                |
 | `--depth`   | 5       | Displayed book depth     |
+| `--seed`    | none    | Random seed (reproducible runs) |
 
 ## Code structure
 
@@ -60,13 +61,13 @@ python LOBModelling.py --mode calibrate --T 1500 --alpha_x 0
 
 ## Calibration check
 
-With `--alpha_x 0 --T 1500`, the MLE recovers the true parameters:
+With `--alpha_x 0 --T 1500 --seed 1` (about 5,000 buy events), the MLE recovers the true parameters:
 
 | Parameter | True | Estimated |
 |-----------|------|-----------|
-| μ         | 2.0  | 2.09      |
-| α         | 0.6  | 0.54      |
-| β         | 1.5  | 1.51      |
+| μ         | 2.0  | 1.99      |
+| α         | 0.6  | 0.62      |
+| β         | 1.5  | 1.55      |
 
 ## Known limitations
 

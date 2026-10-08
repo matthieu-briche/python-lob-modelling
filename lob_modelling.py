@@ -167,15 +167,20 @@ class LimitOrderBook:
         self.mid_price = self.mid0
         self.hawkes.t  = 0.0
         self.hawkes.R[:] = 0.0
+        self.hawkes.event_times = [[], []]   # reconstruit par _trigger ci-dessous
 
         mid_prices = [self.mid0]
         t_axis     = [0.0]
         lambda_b   = [self.hawkes.mu]
         lambda_a   = [self.hawkes.mu]
 
+        # Rejeu des événements : on fait décroître puis exciter l'état R
+        # pour reconstruire λ(t-) juste avant chaque événement.
         for t, p in zip(times, procs):
+            self.hawkes._decay(t - self.hawkes.t)
             self.hawkes.t = t
             lb, la = self.hawkes.intensities()
+            self.hawkes._trigger(int(p))
 
             if p == 0:   # bid market order → prix monte
                 self.mid_price += self.tick * np.random.uniform(0.2, 0.8)
@@ -530,7 +535,10 @@ if __name__ == "__main__":
     parser.add_argument("--T",       type=float, default=120.0, help="Durée (s)")
     parser.add_argument("--tick",    type=float, default=0.01, help="Tick size")
     parser.add_argument("--depth",   type=int,   default=5,    help="Profondeur LOB")
+    parser.add_argument("--seed",    type=int,   default=None, help="Graine aléatoire (reproductibilité)")
     args = parser.parse_args()
+    if args.seed is not None:
+        np.random.seed(args.seed)
 
     params = dict(mu=args.mu, alpha=args.alpha, beta=args.beta,
                   alpha_x=args.alpha_x, mid_price=100.0,
@@ -561,7 +569,8 @@ if __name__ == "__main__":
 
     elif args.mode == "calibrate":
         print("Génération de données synthétiques puis calibration MLE...")
-        hp = HawkesProcess(mu=args.mu, alpha=args.alpha, beta=args.beta)
+        hp = HawkesProcess(mu=args.mu, alpha=args.alpha, beta=args.beta,
+                           alpha_x=args.alpha_x)
         times, procs = hp.simulate(args.T)
         bid_times = times[procs == 0]
         print(f"  {len(bid_times)} événements bid pour la calibration")
