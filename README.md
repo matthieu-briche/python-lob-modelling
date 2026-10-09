@@ -79,3 +79,13 @@ With `--alpha_x 0 --T 1500 --seed 1` (about 5,000 buy events), the MLE recovers 
 - Ogata, Y. (1981). *On Lewis' simulation method for point processes*. IEEE Trans. Inf. Theory.
 - Ozaki, T. (1979). *Maximum likelihood estimation of Hawkes' self-exciting point processes*. Ann. Inst. Stat. Math.
 - Bacry, E., Mastromatteo, I., Muzy, J.-F. (2015). *Hawkes processes in finance*. Market Microstructure and Liquidity.
+
+---
+
+<p align="center">
+  <a href="https://github.com/matthieu-briche">
+    <img src="assets/logo.png" alt="Matthieu Briche" width="37">
+  </a>
+  <br>
+  <sub>Matthieu Briche · <a href="https://github.com/matthieu-briche">github.com/matthieu-briche</a></sub>
+</p>
