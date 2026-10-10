@@ -1,0 +1,7 @@
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.coverage
+hawkes_lob_results.png
+!docs/hawkes_lob_results.png
