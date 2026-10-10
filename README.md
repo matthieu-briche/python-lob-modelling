@@ -1,5 +1,9 @@
 # LOB Modelling — Hawkes-driven limit order book simulator
 
+[![CI](https://github.com/matthieu-briche/python-lob-modelling/actions/workflows/ci.yml/badge.svg)](https://github.com/matthieu-briche/python-lob-modelling/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.10%E2%80%933.13-blue)
+![License](https://img.shields.io/github/license/matthieu-briche/python-lob-modelling)
+
 Simulation of a limit order book (LOB) whose market order flow follows a **bivariate Hawkes process** (buy / sell) with an exponential kernel, with an analysis dashboard, real-time animation and maximum likelihood calibration.
 
 ![Simulation dashboard](docs/hawkes_lob_results.png)
